@@ -19,14 +19,14 @@ export default function App() {
   // const [isLoading, setIsLoading] = useState(false);
   // constloadingView = <Text>now loading</Text>;
   const [zipcode, setZipcode] = useState<string>("");
-  const [addressList, setAddress] = useState<any[]>([]);
+  const [addressList, setAddressList] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const updateAdressList = async () => {
     setIsLoading(true);
     try {
-      const gottenZipcode = await getAdressListAsync(zipcode);
-      setAddress(gottenZipcode);
+      const gottenAdressList = await getAdressListAsync(zipcode);
+      setAddressList(gottenAdressList);
     } catch (error) {
       alert(error);
     }
@@ -64,7 +64,7 @@ export default function App() {
       <FlatList
         data={addressList}
         renderItem={renderAddressItem}
-        keyExtractor={(item, index: any) => `${index}`}
+        keyExtractor={(item, index) => `${index}`}
       />
     </View>
   );
