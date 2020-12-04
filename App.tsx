@@ -19,13 +19,13 @@ export default function App() {
   // const [isLoading, setIsLoading] = useState(false);
   // constloadingView = <Text>now loading</Text>;
   const [zipcode, setZipcode] = useState<string>("");
-  const [address, setAddress] = useState<any[]>([]);
+  const [addressList, setAddress] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const updateZipcode = async () => {
+  const updateAdressList = async () => {
     setIsLoading(true);
     try {
-      const gottenZipcode = await getZipcodeInfoAsync(zipcode);
+      const gottenZipcode = await getAdressListAsync(zipcode);
       setAddress(gottenZipcode);
     } catch (error) {
       alert(error);
@@ -35,7 +35,7 @@ export default function App() {
   };
 
   //住所の情報を取ってくる処理
-  const getZipcodeInfoAsync = async (zipcode: string) => {
+  const getAdressListAsync = async (zipcode: string) => {
     const requestConfig = {
       baseURL: apiBaseURL,
       params: {zipcode: zipcode},
@@ -62,9 +62,9 @@ export default function App() {
   const addressView = (
     <View>
       <FlatList
-        data={address}
+        data={addressList}
         renderItem={renderAddressItem}
-        keyExtractor={(item, index: any) => index}
+        keyExtractor={(item, index: any) => `${index}`}
       />
     </View>
   );
@@ -77,7 +77,7 @@ export default function App() {
             onChangeText={(text) => setZipcode(text)}
             keyboardType="numeric"
           />
-          <Pressable onPress={updateZipcode} style={styles.buttons}>
+          <Pressable onPress={updateAdressList} style={styles.buttons}>
             <Text style={styles.buttonText}>住所を取得</Text>
           </Pressable>
         </View>
